@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { View, Button, TextInput, ScrollView, StyleSheet } from "react-native";
 import { IUser } from "../Interfaces/IUser";
+import firebase from "../database/firebase";
 
-const CreateUser = () => {
+const CreateUser = (props: any) => {
   const [user, setUser] = useState<IUser>({
     name: "",
     email: "",
@@ -11,10 +12,26 @@ const CreateUser = () => {
   const handleChange = (name: string, value: string | number) => {
     setUser({ ...user, [name]: value });
   };
-  const handleSubmit = () =>{
-    console.log(user)
-    setUser({name: "", email: "", phone: "" })
-  }
+  const handleSubmit = async () => {
+    if (user.name === "" || user.email === "" || user.phone === "")
+      alert("Please refill a empty fields");
+    else {
+      console.log(user);
+      try {
+        await firebase.db.collection("users").add({
+          name: user.name,
+          email: user.email,
+          phone: user.phone,
+        });
+        alert("Saved");
+        props.navigation.navigate("UserList")
+        setUser({ name: "", email: "", phone: "" });
+      } catch (e) {
+        console.log(e)
+        alert("Error")
+      }
+    }
+  };
 
   return (
     <ScrollView style={styles.container}>

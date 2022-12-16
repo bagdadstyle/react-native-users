@@ -5,7 +5,7 @@ import CreateUserScreen from "./screens/CreateUserScreen";
 import UserList from "./screens/UsersList";
 import UserDetails from "./screens/UserDetailsScreen";
 
-const Stack: any = createNativeStackNavigator();
+const Stack = createNativeStackNavigator();
 
 function MyStack() {
   return (
