@@ -32,4 +32,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  text: {
+    // textAlign: "center",
+    color: "red"
+  }
 });
