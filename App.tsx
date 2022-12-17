@@ -10,9 +10,21 @@ const Stack = createNativeStackNavigator();
 function MyStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="UserList" component={UserList} />
-      <Stack.Screen name="CreateUserScreen" component={CreateUserScreen} />
-      <Stack.Screen name="UserDetails" component={UserDetails} />
+      <Stack.Screen
+        name="UserList"
+        component={UserList}
+        options={{ title: "Users list" }}
+      />
+      <Stack.Screen
+        name="CreateUserScreen"
+        component={CreateUserScreen}
+        options={{ title: "Create a new user" }}
+      />
+      <Stack.Screen
+        name="UserDetails"
+        component={UserDetails}
+        options={{ title: "user details" }}
+      />
     </Stack.Navigator>
   );
 }
@@ -34,6 +46,6 @@ const styles = StyleSheet.create({
   },
   text: {
     // textAlign: "center",
-    color: "red"
-  }
+    color: "red",
+  },
 });

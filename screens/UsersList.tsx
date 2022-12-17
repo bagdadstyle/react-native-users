@@ -56,11 +56,9 @@ const UserList = (props: any) => {
                 <ListItem.Title>{e.name}</ListItem.Title>
                 <ListItem.Subtitle>{e.email}</ListItem.Subtitle>
               </ListItem.Content>
-            {/* </ListItem.Chevron> */}
+            
           </ListItem>
-    //       <ListItem  title={e.name}
-    // subtitle={e.email}
-    // bottomDiv></ListItem>
+
         );
       })}
     </ScrollView>
