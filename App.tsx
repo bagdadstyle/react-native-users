@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CreateUserScreen from "./screens/CreateUserScreen";
 import UserList from "./screens/UsersList";
 import UserDetails from "./screens/UserDetailsScreen";
+import Landing from "./screens/Landing";
 
 const Stack = createNativeStackNavigator();
 
@@ -11,19 +12,24 @@ function MyStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen
+        name="Landing"
+        component={Landing}
+        options={{ title: "" }}
+      />
+      <Stack.Screen
         name="UserList"
         component={UserList}
-        options={{ title: "Users list" }}
+        options={{ title: "Viajes" }}
       />
       <Stack.Screen
         name="CreateUserScreen"
         component={CreateUserScreen}
-        options={{ title: "Create a new user" }}
+        options={{ title: "Crear un nuevo viaje" }}
       />
       <Stack.Screen
         name="UserDetails"
         component={UserDetails}
-        options={{ title: "user details" }}
+        options={{ title: "Detalles del viaje" }}
       />
     </Stack.Navigator>
   );

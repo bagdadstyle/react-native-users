@@ -53,10 +53,14 @@ const UserDetails = (props: any) => {
     props.navigation.navigate("UserList");
   };
   const confirmationAlert = () => {
-    Alert.alert("Remove User", "Are you Sure?", [
-      { text: "Yes", onPress: () => deleteUser() },
-      { text: "No", onPress: () => console.log(false) },
-    ]);
+    Alert.alert(
+      "Eliminar Viaje",
+      "¿Estas seguro que quieres eliminar este viaje?",
+      [
+        { text: "Si", onPress: () => deleteUser() },
+        { text: "No", onPress: () => console.log(false) },
+      ]
+    );
   };
 
   useEffect(() => {
@@ -65,11 +69,12 @@ const UserDetails = (props: any) => {
 
   if (loading) {
     return (
-      <View>
-        <ActivityIndicator size="large" color="#9e9e9e" />
+      <View style={[styles.loader, styles.horizontal]}>
+        <ActivityIndicator size="large" color="#0000ff" />
       </View>
     );
   }
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.inputGroup}>
@@ -98,8 +103,8 @@ const UserDetails = (props: any) => {
       </View>
       <View>
         <Button
-          color="#E37399"
-          title="Delete User"
+          color="#ca2f2f"
+          title="Eliminar Viaje"
           onPress={() => confirmationAlert()}
         />
       </View>
@@ -118,6 +123,15 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     borderBottomWidth: 1,
     borderBottomColor: "#cccccc",
+  },
+  loader: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  horizontal: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    padding: 10,
   },
 });
 
