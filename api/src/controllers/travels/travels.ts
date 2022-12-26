@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Travels from "../../models/travels";
 import { ITravel } from "../../interfaces/ITravel";
+import drivers from "../../models/drivers";
 
 export const getTravels = async (req: Request, res: Response) => {
   const data = await Travels.find();
@@ -9,12 +10,15 @@ export const getTravels = async (req: Request, res: Response) => {
 };
 
 export const postTravels = async (req: Request, res: Response) => {
-  const { name, arrival, departure }: ITravel = req.body;
+  const { _id, name, arrival, departure } = req.body;
   try {
+    const id = await drivers.findOne({ _id: _id });
+    console.log(id, "------------ID-----------");
     await Travels.create({
       name,
       arrival,
       departure,
+      drivers: id!._id,
     });
     return res.send("Viaje creado");
   } catch (e) {
@@ -42,6 +46,26 @@ export const deleteTravel = async (req: Request, res: Response) => {
     return res.status(201).send("Viaje eliminado");
   } catch (e) {
     console.log(e);
+    return res.status(400).send("Hubo un error");
+  }
+};
+
+export const relationTravels = async (req: Request, res: Response) => {
+  try {
+    const data = await Travels.aggregate([
+      {
+        $lookup: {
+          from: "drivers",
+          localField: "travels",
+          foreignField: "_id",
+          as: "traveldrivers",
+        },
+      },
+    ]);
+    console.log(`RESULT ---> ${JSON.stringify(data)}`);
+    return res.send(data);
+  } catch (e) {
+    console.log(`POST/RELATION ${e}`);
     return res.status(400).send("Hubo un error");
   }
 };

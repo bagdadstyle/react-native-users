@@ -14,8 +14,11 @@ const travelSchema = new mongoose.Schema(
       type: Date,
       require: true,
     },
+    drivers: {
+      type: mongoose.Types.ObjectId,
+    },
   },
   { timestamps: true, updatedAt: false }
 );
 
-export default mongoose.model("Travels", travelSchema);
+export default mongoose.model("travels", travelSchema);
