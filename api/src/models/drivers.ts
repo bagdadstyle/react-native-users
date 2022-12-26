@@ -15,7 +15,7 @@ const driverSchema = new mongoose.Schema(
       require: true,
     },
   },
-  { timestamps: true }
+  { timestamps: true, updatedAt: false }
 );
 
 export default mongoose.model("Drivers", driverSchema);
