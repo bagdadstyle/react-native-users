@@ -42,10 +42,12 @@ const UserList = (props: any) => {
 
   return (
     <ScrollView>
-      <Button
-        title="Create User"
-        onPress={() => props.navigation.navigate("CreateUserScreen")}
-      />
+      <View style={styles.views}>
+        <Button
+          title="Agregar viaje"
+          onPress={() => props.navigation.navigate("CreateUserScreen")}
+        />
+      </View>
 
       {users.map((e) => {
         console.log(e);
@@ -84,6 +86,10 @@ const UserList = (props: any) => {
 };
 
 const styles = StyleSheet.create({
+  views: {
+    // marginTop: 5,
+    marginBottom: 8,
+  },
   list: {
     width: "100%",
     padding: 0,

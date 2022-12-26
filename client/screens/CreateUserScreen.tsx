@@ -9,6 +9,7 @@ const CreateUser = (props: any) => {
     email: "",
     phone: "",
   });
+  let now = new Date();
   const handleChange = (name: string, value: string | number) => {
     setUser({ ...user, [name]: value });
   };
@@ -24,11 +25,11 @@ const CreateUser = (props: any) => {
           phone: user.phone,
         });
         alert("Saved");
-        props.navigation.navigate("UserList")
+        props.navigation.navigate("UserList");
         setUser({ name: "", email: "", phone: "" });
       } catch (e) {
-        console.log(e)
-        alert("Error")
+        console.log(e);
+        alert("Error");
       }
     }
   };

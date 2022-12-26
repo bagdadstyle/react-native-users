@@ -1,4 +1,11 @@
-import { View, ImageBackground, StyleSheet, Text, Button } from "react-native";
+import {
+  View,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  Button,
+  TouchableOpacity,
+} from "react-native";
 import image from "../images/landing.png";
 
 // const image = { uri: "../images/landing.png" };
@@ -14,8 +21,11 @@ const Landing = (props: any) => {
         resizeMode="cover"
         style={styles.image}
       ></ImageBackground>
-      <View style={{ padding: 15 }}>
-        <Button onPress={() => handleButton()} title="Ingresar" />
+      <View>
+        {/* <Button onPress={() => handleButton()} title="Ingresar" /> */}
+        <TouchableOpacity onPress={() => handleButton()} style={styles.button}>
+          <Text style={styles.text}>Ingresar</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -29,13 +39,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
   },
+  button: {
+    backgroundColor: "#007bff",
+    borderRadius: 5,
+    margin: 20,
+    padding: 10,
+    alignItems: "center",
+  },
   text: {
+    fontSize: 22,
     color: "white",
-    fontSize: 42,
-    lineHeight: 84,
-    fontWeight: "bold",
-    textAlign: "center",
-    backgroundColor: "#000000c0",
   },
 });
 export default Landing;

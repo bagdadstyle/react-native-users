@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Button } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CreateUserScreen from "./screens/CreateUserScreen";
@@ -14,12 +14,21 @@ function MyStack() {
       <Stack.Screen
         name="Landing"
         component={Landing}
-        options={{ title: "" }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="UserList"
         component={UserList}
-        options={{ title: "Viajes" }}
+        options={({ navigation }) => ({
+          headerTitle: "Viajes",
+          headerRight: () => (
+            <Button
+              title="Historial"
+              onPress={() => navigation.navigate("Landing")}
+              color="blue"
+            />
+          ),
+        })}
       />
       <Stack.Screen
         name="CreateUserScreen"
