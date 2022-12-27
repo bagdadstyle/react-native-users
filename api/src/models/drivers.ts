@@ -14,11 +14,9 @@ const driverSchema = new mongoose.Schema(
       type: Date,
       require: true,
     },
-    travels: {
-      type: mongoose.Types.ObjectId,
-    },
+    travels: [{type: mongoose.Schema.Types.ObjectId, ref: "Travel"}]
   },
   { timestamps: true, updatedAt: false }
 );
 
-export default mongoose.model("drivers", driverSchema);
+export default mongoose.model("Driver", driverSchema);
