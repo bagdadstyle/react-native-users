@@ -4,7 +4,7 @@ const swaggerSpec = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Node MongoDB API",
+      title: "Travels API",
       version: "1.0.0",
     },
     servers: [
@@ -13,7 +13,7 @@ const swaggerSpec = {
       },
     ],
   },
-  apis: [`${path.join(__dirname, "./routes/*.ts")}`],
+  apis: [`${path.join(__dirname, "../routes/*.ts")}`],
 };
 
 export default swaggerSpec;
