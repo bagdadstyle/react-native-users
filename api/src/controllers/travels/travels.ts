@@ -15,6 +15,7 @@ export const getOneTravel = async (req: Request, res: Response) => {
 
 export const getTravels = async (req: Request, res: Response) => {
   try {
+    // const { id } = req.params;
     const data = await travelService.getTravels();
     return res.send(data);
   } catch (e) {
@@ -24,13 +25,14 @@ export const getTravels = async (req: Request, res: Response) => {
 };
 
 export const postTravels = async (req: Request, res: Response) => {
-  const { name, departure, arrival, drivers }: ITravel = req.body;
+  const { name, departure, arrival, drivers, userName }: ITravel = req.body;
   try {
     const data = await travelService.postTravels(
       name,
       departure,
       arrival,
-      drivers!
+      drivers!,
+      userName!
     );
     return res.send(data);
   } catch (e) {

@@ -4,7 +4,7 @@ import {
   postTravels,
   updateTravel,
   deleteTravel,
-  relationTravels,
+  // relationTravels,
   getOneTravel,
 } from "../controllers/travels/travels";
 
@@ -13,7 +13,7 @@ const router = express.Router();
 router.get("/", getTravels);
 
 router.post("/one", getOneTravel);
-router.get("/get", relationTravels);
+// router.get("/get", relationTravels);
 router.post("/", postTravels);
 router.put("/", updateTravel);
 router.delete("/", deleteTravel);

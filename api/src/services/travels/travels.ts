@@ -7,7 +7,17 @@ export const getOneTravel = async (_id: String) => {
 };
 
 export const getTravels = async () => {
-  const data = await Travels.find();
+  const data = await Travels.aggregate([
+    {
+      $lookup: {
+        from: "drivers", //////// Busco en la collecion externa
+        localField: "drivers", /////// Busco en la collecion actual
+        foreignField: "_id", //// busco en la coleccion externa y comparo con el campo actual
+        as: "drivers", /// creo un campo nuevo con los datos comparados
+      },
+    },
+  ]);
+  console.log(data);
   if (data.length == 0) throw "No se encontraron viajes";
   return data;
 };
@@ -16,13 +26,15 @@ export const postTravels = async (
   name: String,
   departure: Date,
   arrival: Date,
-  drivers: String
+  drivers: String,
+  userName: String
 ) => {
   await Travels.create({
     name,
     departure,
     arrival,
     drivers,
+    userName,
   });
   return "Viaje creado";
 };

@@ -14,9 +14,9 @@ export const getDrivers = async (req: Request, res: Response) => {
 };
 
 export const postDriver = async (req: Request, res: Response) => {
-  const { firstName, lastName, license }: IDrivers = req.body;
+  const { firstName, lastName, license, userName }: IDrivers = req.body;
   try {
-    const data = await driverServices.postDriver(firstName, lastName, license);
+    const data = await driverServices.postDriver(firstName, lastName, license, userName);
 
     return res.status(201).send(data);
   } catch (e) {

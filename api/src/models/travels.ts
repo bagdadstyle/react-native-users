@@ -6,6 +6,9 @@ const travelSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
+    userName: {
+      type: String,
+    },
     departure: {
       type: Date,
       require: true,
@@ -16,7 +19,7 @@ const travelSchema = new mongoose.Schema(
     },
     drivers: [{ type: mongoose.Schema.Types.ObjectId, ref: "Driver" }],
   },
-  { timestamps: true, updatedAt: false }
+  { timestamps: true, updatedAt: false, versionKey: false }
 );
 
 export default mongoose.model("Travel", travelSchema);

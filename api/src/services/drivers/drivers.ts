@@ -9,12 +9,14 @@ export const getDrivers = async () => {
 export const postDriver = async (
   firstName: String,
   lastName: String,
-  license: Date
+  license: Date,
+  userName: String,
 ) => {
   await Drivers.create({
     firstName,
     lastName,
     license,
+    userName
   });
   return "Creado";
 };

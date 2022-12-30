@@ -4,4 +4,5 @@ export interface ITravel {
   departure: Date;
   arrival: Date;
   drivers?: String;
+  userName?: String;
 }
