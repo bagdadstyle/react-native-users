@@ -4,4 +4,5 @@ export interface IDrivers {
   lastName: String;
   license: Date;
   travels?: String;
+  userName: String;
 }

@@ -1,12 +1,11 @@
 import { Request, Response } from "express";
 import Payments from "../../models/payments";
 import { IPayments } from "../../interfaces/IPayments";
+import * as paymentService from "../../services/payments/payments";
 
 export const getPayments = async (req: Request, res: Response) => {
   try {
-    const data = await Payments.find();
-    if (data.length == 0)
-      return res.status(400).send("No se encontró ningún historial");
+    const data = await paymentService.getPayments();
     return res.send(data);
   } catch (e) {
     console.log(`GET/PAYMENTS ${e}`);
@@ -15,10 +14,8 @@ export const getPayments = async (req: Request, res: Response) => {
 };
 
 export const getOnePayment = async (req: Request, res: Response) => {
-  const { _id } = req.body;
   try {
-    const data = await Payments.findOne({ _id });
-    if (!data) return res.status(400).send("No se encontró historial");
+    const data = await paymentService.getOnePayment(req.body._id);
     return res.send(data);
   } catch (e) {
     console.log(`POST/GETONEPAYMENT ${e}`);
@@ -27,8 +24,7 @@ export const getOnePayment = async (req: Request, res: Response) => {
 };
 export const getHistory = async (req: Request, res: Response) => {
   try {
-    const data = await Payments.find({ driver: req.body._id });
-    if (data.length == 0) return res.send("No se encontró historial");
+    const data = await paymentService.getHistory(req.body._id);
     return res.send(data);
   } catch (e) {
     console.log(`POST/GET HISTORY ${e}`);
@@ -39,8 +35,8 @@ export const getHistory = async (req: Request, res: Response) => {
 export const postPayment = async (req: Request, res: Response) => {
   const { payment, date, driver }: IPayments = req.body;
   try {
-    await Payments.create({ payment, date, driver });
-    return res.status(201).send("Pago Creado");
+    const data = await paymentService.postPayment(payment, date, driver);
+    return res.send(data);
   } catch (e) {
     console.log(`POST/PAYMENT ${e}`);
     return res.status(400).send("Hubo un error");
@@ -48,10 +44,15 @@ export const postPayment = async (req: Request, res: Response) => {
 };
 
 export const updatePayment = async (req: Request, res: Response) => {
-  const { payment, driver, date, _id }: IPayments = req.body;
+  const { _id, payment, driver, date }: IPayments = req.body;
   try {
-    await Payments.updateOne({ _id }, { payment, driver, date });
-    return res.status(201).send("Actualizado");
+    const data = await paymentService.updatePayment(
+      _id!,
+      payment,
+      driver,
+      date
+    );
+    return res.send(data);
   } catch (e) {
     console.log(`PUT/PAYMENT ${e}`);
     return res.status(400).send("Hubo un error");
@@ -60,8 +61,8 @@ export const updatePayment = async (req: Request, res: Response) => {
 
 export const deletePayment = async (req: Request, res: Response) => {
   try {
-    await Payments.deleteOne({ _id: req.body._id });
-    return res.status(201).send("Eliminado");
+    const data = await paymentService.deletePayment(req.body._id);
+    return res.send(data);
   } catch (e) {
     console.log(`DELETE/PAYMENT ${e}`);
     return res.status(400).send("Hubo un error");

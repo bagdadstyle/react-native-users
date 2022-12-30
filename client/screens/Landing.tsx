@@ -12,7 +12,7 @@ import image from "../images/landing.png";
 
 const Landing = (props: any) => {
   const handleButton = () => {
-    props.navigation.navigate("UserList");
+    props.navigation.navigate("TravelList");
   };
   return (
     <View style={[styles.container]}>

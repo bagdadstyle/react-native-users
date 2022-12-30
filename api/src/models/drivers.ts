@@ -6,6 +6,9 @@ const driverSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
+    userName: {
+      type: String,
+    },
     lastName: {
       type: String,
       require: true,
@@ -14,7 +17,7 @@ const driverSchema = new mongoose.Schema(
       type: Date,
       require: true,
     },
-    travels: [{type: mongoose.Schema.Types.ObjectId, ref: "Travel"}]
+    // travels: [{type: mongoose.Schema.Types.ObjectId, ref: "Travel"}]
   },
   { timestamps: true, updatedAt: false }
 );

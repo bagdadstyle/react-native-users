@@ -43,14 +43,14 @@ const UserDetails = (props: any) => {
       phone: user.phone,
     });
     setUser(initialState);
-    props.navigation.navigate("UserList");
+    props.navigation.navigate("TravelList");
   };
   const deleteUser = async () => {
     const dbRef = firebase.db
       .collection("users")
       .doc(props.route.params.userId);
     await dbRef.delete();
-    props.navigation.navigate("UserList");
+    props.navigation.navigate("TravelList");
   };
   const confirmationAlert = () => {
     Alert.alert(

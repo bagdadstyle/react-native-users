@@ -2,6 +2,7 @@ import express from "express";
 
 const router = express.Router();
 
+
 import travels from "./travels";
 router.use("/travels", travels);
 

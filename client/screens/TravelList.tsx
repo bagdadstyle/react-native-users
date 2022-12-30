@@ -6,30 +6,51 @@ import {
   Button,
   StyleSheet,
   ActivityIndicator,
+  RefreshControl,
+  Alert,
 } from "react-native";
 import { ListItem, Avatar } from "react-native-elements";
 import firebase from "../database/firebase";
 import { IUser } from "../Interfaces/IUser";
+import { getAllTravels } from "../services/database/travels/dbTravels";
 
 const UserList = (props: any) => {
   const [users, setUsers] = useState<IUser[]>([]);
   const [loading, setLoading] = useState<Boolean>(true);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const fetchData = async () => {
+    try {
+      const data = await getAllTravels();
+      setUsers(data);
+      setLoading(false);
+    } catch (err) {
+      setRefreshing(false);
+      Alert.alert("Ups", "Deslize hacía abajo para actualizar");
+    }
+  };
+  const refreshScreen = async () => {
+    setRefreshing(true);
+    await fetchData();
+    setRefreshing(false);
+  };
 
   useEffect(() => {
-    firebase.db.collection("users").onSnapshot((querySnapshot) => {
-      const users: IUser[] = [];
-      querySnapshot.docs.forEach((doc) => {
-        const { name, email, phone } = doc.data();
-        users.push({
-          id: doc.id,
-          name,
-          email,
-          phone,
-        });
-      });
-      setUsers(users);
-      setLoading(false);
-    });
+    // firebase.db.collection("users").onSnapshot((querySnapshot) => {
+    //   const users: IUser[] = [];
+    //   querySnapshot.docs.forEach((doc) => {
+    //     const { name, email, phone } = doc.data();
+    //     users.push({
+    //       id: doc.id,
+    //       name,
+    //       email,
+    //       phone,
+    //     });
+    //   });
+    //   setUsers(users);
+    //   setLoading(false);
+    // });
+    fetchData();
   }, []);
 
   if (loading) {
@@ -41,7 +62,14 @@ const UserList = (props: any) => {
   }
 
   return (
-    <ScrollView>
+    <ScrollView
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={() => refreshScreen()}
+        />
+      }
+    >
       <View style={styles.views}>
         <Button
           title="Agregar viaje"
@@ -49,13 +77,13 @@ const UserList = (props: any) => {
         />
       </View>
 
-      {users.map((e) => {
+      {users.map((e, i) => {
         console.log(e);
         return (
           <ListItem
             hasTVPreferredFocus={undefined}
             tvParallaxProperties={undefined}
-            key={e.id}
+            key={i}
             style={styles.list}
             bottomDivider
             onPress={() =>
