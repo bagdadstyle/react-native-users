@@ -12,7 +12,7 @@ const router = express.Router();
 //GET TRAVELS
 router.get("/", getTravels);
 
-router.post("/one", getOneTravel);
+router.post("/one/:id", getOneTravel);
 // router.get("/get", relationTravels);
 router.post("/", postTravels);
 router.put("/", updateTravel);

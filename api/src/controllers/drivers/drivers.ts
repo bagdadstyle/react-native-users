@@ -5,6 +5,10 @@ import Drivers from "../../models/drivers";
 
 export const getDrivers = async (req: Request, res: Response) => {
   try {
+    if (req.params.id) {
+      const data = await driverServices.getDriverByParams(req.params.id);
+      return res.send(data);
+    }
     const data = await driverServices.getDrivers();
     return res.send(data);
   } catch (e) {
@@ -16,7 +20,12 @@ export const getDrivers = async (req: Request, res: Response) => {
 export const postDriver = async (req: Request, res: Response) => {
   const { firstName, lastName, license, userName }: IDrivers = req.body;
   try {
-    const data = await driverServices.postDriver(firstName, lastName, license, userName);
+    const data = await driverServices.postDriver(
+      firstName,
+      lastName,
+      license,
+      userName
+    );
 
     return res.status(201).send(data);
   } catch (e) {

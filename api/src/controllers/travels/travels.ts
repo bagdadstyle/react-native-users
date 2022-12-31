@@ -5,7 +5,7 @@ import * as travelService from "../../services/travels/travels";
 
 export const getOneTravel = async (req: Request, res: Response) => {
   try {
-    const data = await travelService.getOneTravel(req.body._id);
+    const data = await travelService.getOneTravel(req.params.id);
     return res.send(data);
   } catch (e) {
     console.log(`GET/ONETRAVEL ${e}`);

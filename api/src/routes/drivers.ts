@@ -9,6 +9,7 @@ import {
 const router = express.Router();
 
 router.get("/", getDrivers);
+router.get("/:id", getDrivers)
 router.post("/", postDriver);
 router.put("/", updateDriver);
 router.delete("/", deleteDriver);
@@ -123,6 +124,25 @@ router.delete("/", deleteDriver);
  *        description: DELETED.
  *      401:
  *        description: Error.
+ *
+ */
+/**
+ * @swagger
+ * /drivers/:id:
+ *  get:
+ *    summary: Get driver by ID (Params).
+ *    tags: [Drivers]
+ *    responses:
+ *      200:
+ *        description: Get Driver by mongo ID (Params).
+ *      401:
+ *        description: Error.
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                $ref: '#/components/schemas/Driver'
  *
  */
 

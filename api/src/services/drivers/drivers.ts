@@ -10,13 +10,13 @@ export const postDriver = async (
   firstName: String,
   lastName: String,
   license: Date,
-  userName: String,
+  userName: String
 ) => {
   await Drivers.create({
     firstName,
     lastName,
     license,
-    userName
+    userName,
   });
   return "Creado";
 };
@@ -34,4 +34,10 @@ export const updateDriver = async (
 export const deleteDriver = async (_id: String) => {
   await Drivers.deleteOne({ _id });
   return "Eliminado";
+};
+
+export const getDriverByParams = async (id: string) => {
+  const data = await Drivers.findOne({ _id: id });
+  if (data) return data;
+  throw "No se encontró información";
 };

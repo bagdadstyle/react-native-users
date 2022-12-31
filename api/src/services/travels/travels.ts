@@ -1,7 +1,23 @@
 import Travels from "../../models/travels";
+import mongoose from "mongoose";
 
-export const getOneTravel = async (_id: String) => {
-  const data = await Travels.findOne({ _id });
+export const getOneTravel = async (_id: String | any) => {
+  // const data = await Travels.findOne({ _id });
+  // const id = new mongoose.Types.ObjectId(_id)
+  // console.log(id)
+  const data = await Travels.aggregate([
+    {
+      $match: { _id: new mongoose.Types.ObjectId(_id) },
+    },
+    {
+      $lookup: {
+        from: "drivers",
+        localField: "drivers",
+        foreignField: "_id",
+        as: "drivers",
+      },
+    },
+  ]);
   if (!data) throw "No se encontró el viaje solicitado";
   return data;
 };

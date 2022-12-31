@@ -10,12 +10,14 @@ function Drawer(props: any) {
         text="Viajes"
         onPress={() => props.navigation.navigate("TravelList")}
       />
-      <MenuItemButton 
-      text="Agregar nuevo conductor"
-      onPress={() => props.navigation.navigate("CreateUserScreen")}/>
-      <MenuItemButton 
-      text="Conductores"
-      onPress={() => props.navigation.navigate("Drivers")}/>
+      <MenuItemButton
+        text="Agregar nuevo viaje"
+        onPress={() => props.navigation.navigate("CreateUserScreen")}
+      />
+      <MenuItemButton
+        text="Conductores"
+        onPress={() => props.navigation.navigate("Drivers")}
+      />
     </DrawerContentScrollView>
   );
 }
