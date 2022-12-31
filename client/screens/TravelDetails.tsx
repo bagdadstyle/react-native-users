@@ -5,6 +5,7 @@ import { IUser } from "../Interfaces/IUser";
 import { getTravelById } from "../services/database/travels/dbTravels";
 import moment from "moment";
 import es from "moment/locale/es";
+import { IDrivers } from "../Interfaces/IDrivers";
 
 const initialState: IUser = {
   _id: "",
@@ -20,11 +21,7 @@ const TravelDetails = (props: any) => {
 
   const fetchData = async (id: string) => {
     let data = await getTravelById(id);
-    data = Object.assign({}, ...data);
-    data.departure = moment(data.departure)
-      .locale("es")
-      .format("MMM D, h:mm a");
-    data.arrival = moment(data.arrival).locale("es").format("MMM D, h:mm a");
+
     setTravel(data);
     setLoading(false);
   };
@@ -79,6 +76,37 @@ const TravelDetails = (props: any) => {
           <ListItem.Title style={styles.text}>{travel.arrival}</ListItem.Title>
         </ListItem.Content>
       </ListItem>
+      <ListItem
+        hasTVPreferredFocus={undefined}
+        tvParallaxProperties={undefined}
+        bottomDivider
+        style={styles.list}
+      >
+        <ListItem.Content style={styles.rows}>
+          <ListItem.Title style={styles.text}>Conductores</ListItem.Title>
+          <ListItem.Title style={styles.text}>Licencia</ListItem.Title>
+        </ListItem.Content>
+      </ListItem>
+      {travel.drivers?.map((driver, i) => {
+        return (
+          <ListItem
+            key={i}
+            hasTVPreferredFocus={undefined}
+            tvParallaxProperties={undefined}
+            bottomDivider
+            style={styles.list}
+          >
+            <ListItem.Content style={styles.rows}>
+              <ListItem.Title style={styles.text}>
+                {driver.firstName + " " + driver.lastName}
+              </ListItem.Title>
+              <ListItem.Title style={styles.text}>
+                {driver.license}
+              </ListItem.Title>
+            </ListItem.Content>
+          </ListItem>
+        );
+      })}
     </View>
   );
 };
@@ -88,7 +116,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 15,
     alignItems: "center",
-    marginTop: 10,
+    // marginTop: 10,
   },
   image: {
     width: 200,
