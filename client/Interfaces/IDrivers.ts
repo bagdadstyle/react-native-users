@@ -7,5 +7,5 @@ export interface IDrivers {
   lastName: string;
   license: Date | string | ReactNode;
   createdAt: Date | string | ReactNode;
-  nombre: string
+  // nombre: string
 }

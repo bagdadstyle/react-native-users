@@ -22,6 +22,7 @@ const UserList = (props: any) => {
   const fetchData = async () => {
     try {
       const data = await getAllTravels();
+      
       setUsers(data);
       setLoading(false);
     } catch (err) {
@@ -36,20 +37,6 @@ const UserList = (props: any) => {
   };
 
   useEffect(() => {
-    // firebase.db.collection("users").onSnapshot((querySnapshot) => {
-    //   const users: IUser[] = [];
-    //   querySnapshot.docs.forEach((doc) => {
-    //     const { name, email, phone } = doc.data();
-    //     users.push({
-    //       id: doc.id,
-    //       name,
-    //       email,
-    //       phone,
-    //     });
-    //   });
-    //   setUsers(users);
-    //   setLoading(false);
-    // });
     fetchData();
   }, []);
 
@@ -78,7 +65,6 @@ const UserList = (props: any) => {
       </View>
 
       {users.map((e, i) => {
-        console.log(e);
         return (
           <ListItem
             hasTVPreferredFocus={undefined}
@@ -87,8 +73,8 @@ const UserList = (props: any) => {
             style={styles.list}
             bottomDivider
             onPress={() =>
-              props.navigation.navigate("UserDetails", {
-                userId: e.id,
+              props.navigation.navigate("TravelDetails", {
+                id: e._id,
               })
             }
           >
@@ -104,7 +90,9 @@ const UserList = (props: any) => {
             />
             <ListItem.Content>
               <ListItem.Title>{e.name}</ListItem.Title>
-              <ListItem.Subtitle>{e.email}</ListItem.Subtitle>
+              <ListItem.Subtitle>
+                {e.departure + " " + e.arrival}
+              </ListItem.Subtitle>
             </ListItem.Content>
           </ListItem>
         );

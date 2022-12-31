@@ -26,7 +26,6 @@ const Drivers = (props: any) => {
     );
     setDrivers(data);
     setLoading(false);
-
   };
   const refreshScreen = async () => {
     try {
@@ -74,6 +73,11 @@ const Drivers = (props: any) => {
               hasTVPreferredFocus={undefined}
               tvParallaxProperties={undefined}
               bottomDivider
+              onPress={() =>
+                props.navigation.navigate("DriverDetails", {
+                  id: driver._id,
+                })
+              }
             >
               <ListItem.Chevron
                 hasTVPreferredFocus={undefined}
