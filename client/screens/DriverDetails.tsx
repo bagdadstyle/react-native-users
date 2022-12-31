@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { Text, View, ScrollView, StyleSheet, Image } from "react-native";
+import {
+  Text,
+  View,
+  ScrollView,
+  StyleSheet,
+  Image,
+  ActivityIndicator,
+} from "react-native";
 import { ListItem } from "react-native-elements";
 import { IDrivers } from "../Interfaces/IDrivers";
 import { getDriverById } from "../services/database/drivers/dbDrivers";
@@ -15,17 +22,30 @@ const initialState: IDrivers = {
 
 const DriverDetails = (props: any) => {
   const [driver, setDriver] = useState<IDrivers>();
+  const [loading, setLoading] = useState<Boolean>(true);
 
   const fetchData = async (id: string) => {
     const data = await getDriverById(id);
     data.license = moment(data.license).locale("es").format("MMM D YYYY,");
     setDriver(data);
+    setLoading(false);
   };
 
   useEffect(() => {
     fetchData(props.route.params.id);
-    return () => setDriver(initialState);
+    return () => {
+      setDriver(initialState);
+      setLoading(true);
+    };
   }, [props]);
+
+  if (loading) {
+    return (
+      <View style={[styles.loader, styles.horizontal]}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -85,6 +105,15 @@ const styles = StyleSheet.create({
   },
   text: {
     fontWeight: "bold",
+  },
+  loader: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  horizontal: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    padding: 10,
   },
 });
 

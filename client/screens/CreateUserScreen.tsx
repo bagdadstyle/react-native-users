@@ -1,9 +1,43 @@
 import React, { useState } from "react";
-import { View, Button, TextInput, ScrollView, StyleSheet } from "react-native";
+import {
+  View,
+  Button,
+  TextInput,
+  ScrollView,
+  StyleSheet,
+  Platform,
+} from "react-native";
 import { IUser } from "../Interfaces/IUser";
 import firebase from "../database/firebase";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 const CreateUser = (props: any) => {
+  const [date, setDate] = useState(new Date());
+  const [mode, setMode] = useState<any>("date");
+  const [show, setShow] = useState(false);
+  const [text, setText] = useState("Empty");
+
+  const showMode = (currentMode: any) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+  const dateChange = (event: any, selectedDate: any) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === "ios");
+    setDate(currentDate);
+
+    let tempDate = new Date(currentDate);
+    let fDate =
+      tempDate.getDate() +
+      "-" +
+      (tempDate.getMonth() + 1) +
+      "-" +
+      tempDate.getFullYear();
+    let fTime =
+      "Hours " + tempDate.getHours() + "| Minutes: " + tempDate.getMinutes();
+    setText(fDate + "\n" + fTime);
+    console.log(fDate + "(" + fTime + ")");
+  };
   const [user, setUser] = useState<IUser>({
     name: "",
     departure: "",
@@ -59,6 +93,21 @@ const CreateUser = (props: any) => {
       </View>
       <View style={styles.inputGroup}>
         <Button title="Save" onPress={() => handleSubmit()} />
+      </View>
+      <View style={styles.inputGroup}>
+        <Button title="Save" onPress={() => showMode("date")} />
+        <Button title="Save" onPress={() => showMode("time")} />
+        {show && (
+          <DateTimePicker
+            locale="es-ES"
+            testID="dateTimePicker"
+            value={date}
+            mode={mode}
+            is24Hour={true}
+            display="default"
+            onChange={dateChange}
+          />
+        )}
       </View>
     </ScrollView>
   );
